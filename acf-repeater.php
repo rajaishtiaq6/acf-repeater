@@ -2,11 +2,11 @@
 /*
 Plugin Name: ACF Repeater Field
 Plugin Slug: acf-repeater
-Plugin URI: http://www.advancedcustomfields.com
-Description: This premium Add-on adds a repeater field type for the Advanced Custom Fields plugin
+Plugin URI: https://github.com/rajaishtiaq6/acf-repeater
+Description: This Add-on adds a repeater field type for the Advanced Custom Fields plugin
 Version: 2.1.0
 Author: Ishtiaq Ahmed
-Author URI: http://www.advancedcustomfields.com
+Author URI: https://github.com/rajaishtiaq6
 License: GPL
 */
 
