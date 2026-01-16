@@ -4,7 +4,7 @@ Plugin Name: ACF Repeater Field
 Plugin Slug: acf-repeater
 Plugin URI: https://github.com/rajaishtiaq6/acf-repeater
 Description: This Add-on adds a repeater field type for the Advanced Custom Fields plugin
-Version: 2.1.0
+Version: 2.1.1
 Author: Ishtiaq Ahmed
 Author URI: https://github.com/rajaishtiaq6
 License: GPL
@@ -27,7 +27,7 @@ class acf_plugin_repeater
 		$this->settings = array(
 			// basic
 			'name'				=> __('Advanced Custom Fields: Repeater Field', 'acf'),
-			'version'			=> '2.1.0',
+			'version'			=> '2.1.1',
 			// urls
 			'slug'				=> dirname(plugin_basename(__FILE__)),
 			'basename'			=> plugin_basename(__FILE__),
@@ -39,10 +39,7 @@ class acf_plugin_repeater
 		add_action('acf/include_field_types', array($this, 'include_field_types'));
 		// include v4 field
 		add_action('acf/register_fields', array($this, 'include_field_types'));
-		// include updates
-		if (is_admin()) {
-			$this->include_file('acf-repeater-update.php');
-		}
+
 		add_action('admin_enqueue_scripts', array($this, 'acf_repeater_input_admin_enqueue_scripts'));
 		add_action( 'acf/field_group/admin_enqueue_scripts', array($this, 'acf_repeater_localize') );
 	}
@@ -67,7 +64,9 @@ class acf_plugin_repeater
 	{
 
 		if (defined('ACF_VERSION')) {
-			if (version_compare(ACF_VERSION, '6.2', '>=')) {
+			if (version_compare(ACF_VERSION, '6.7', '>=')) {
+				$this->version = '6-7';
+			} elseif (version_compare(ACF_VERSION, '6.2', '>=')) {
 				$this->version = '6-2';
 			} elseif (version_compare(ACF_VERSION, '5.7.0', '>=')) {
 				$this->version = '5-7';
@@ -79,7 +78,7 @@ class acf_plugin_repeater
 		}
 		$this->include_file("includes/$this->version/acf-repeater-field.php");
 
-		if ($this->version == '6-2') {
+		if ($this->version == '6-2' || $this->version == '6-7') {
 			$this->include_file("includes/$this->version/class-acf-repeater-table.php");
 		}
 	}
