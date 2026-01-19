@@ -4,10 +4,14 @@ Plugin Name: ACF Repeater Field
 Plugin Slug: acf-repeater
 Plugin URI: https://github.com/rajaishtiaq6/acf-repeater
 Description: This Add-on adds a repeater field type for the Advanced Custom Fields plugin
-Version: 2.1.1
+Version: 1.0.0
 Author: Ishtiaq Ahmed
 Author URI: https://github.com/rajaishtiaq6
-License: GPL
+Requires at least: 6.0
+Tested up to: 6.9
+Requires PHP: 7.4
+Requires Plugins: advanced-custom-fields
+License: GPLv2
 */
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
@@ -27,7 +31,7 @@ class acf_plugin_repeater
 		$this->settings = array(
 			// basic
 			'name'				=> __('Advanced Custom Fields: Repeater Field', 'acf'),
-			'version'			=> '2.1.1',
+			'version'			=> '1.0.0',
 			// urls
 			'slug'				=> dirname(plugin_basename(__FILE__)),
 			'basename'			=> plugin_basename(__FILE__),
@@ -74,7 +78,7 @@ class acf_plugin_repeater
 				$this->version = '5-0';
 			}
 		} else {
-			$this->version = '4-0';
+			$this->version = '5-0';
 		}
 		$this->include_file("includes/$this->version/acf-repeater-field.php");
 

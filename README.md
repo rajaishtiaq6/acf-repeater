@@ -10,10 +10,10 @@ This field type acts as a parent to a set of sub fields which can be repeated ag
 
 | Plugin Version | ACF Version | Notes |
 |----------------|-------------|-------|
-| 2.1.1 | 6.7+ | Full support for ACF Pro 6.7 features including improved nonce verification, field_prefix support, and enhanced clone field handling |
-| 2.1.0 | 6.2 - 6.6 | Support for pagination and ACF 6.x features |
-| 2.0.x | 5.7 - 6.1 | Legacy support |
-| 1.x | 4.0 - 5.6 | Legacy support |
+| 1.0.0 | 6.7+ | Full support for ACF Pro 6.7 features including improved nonce verification, field_prefix support, and enhanced clone field handling |
+| 1.0.0 | 6.2 - 6.6 | Support for pagination and ACF 6.x features |
+| 1.0.0 | 5.7 - 6.1 | Legacy support |
+| 1.0.0 | 5.0 - 5.6 | Legacy support |
 
 
 ## Settings
@@ -193,24 +193,7 @@ Also, pagination does not currently work inside of ACF blocks. That may change i
 
 ## Changelog
 
-### 2.1.1 (2026-01-17)
-- **NEW**: Added ACF 6.7+ compatibility with new `6-7` folder
-- **IMPROVED**: Enhanced security with field-specific nonce verification for AJAX pagination
-- **IMPROVED**: Added `field_prefix` support for nested repeaters inside subfields
-- **IMPROVED**: Better handling of compound keys and seamless clone fields in `get_field_name_from_input_name()`
-- **IMPROVED**: Updated to use `acf_get_metadata_by_field()` for more robust metadata retrieval
-- **IMPROVED**: Added `data-prefix` and `data-nonce` attributes to repeater table for better nested field support
-- **FIXED**: Corrected field description text (was showing Clone field description)
-- **ADDED**: Block bindings support flag (`'bindings' => false`)
-
-### 2.1.0
-- Added ACF 6.2+ compatibility with pagination support
-- Added `class-acf-repeater-table.php` for table rendering
-
-### 2.0.0
-- Added ACF 5.7+ compatibility
-
-### 1.0.0
+### 1.0.0 (2026-01-17)
 - Initial release for ACF 4.x and 5.x
 
 -----
