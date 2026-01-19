@@ -1,6 +1,7 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
-if( ! class_exists('acf_field_repeater') ) :
+if (!class_exists('acf_field_repeater')) :
 
 class acf_field_repeater extends acf_field {
 	
@@ -22,7 +23,7 @@ class acf_field_repeater extends acf_field {
 		
 		// vars
 		$this->name = 'repeater';
-		$this->label = __("Repeater",'acf');
+		$this->label = __("Repeater",'shaqi-acf-repeater');
 		$this->category = 'layout';
 		$this->defaults = array(
 			'sub_fields'	=> array(),
@@ -33,8 +34,8 @@ class acf_field_repeater extends acf_field {
 			'collapsed'		=> ''
 		);
 		$this->l10n = array(
-			'min'			=>	__("Minimum rows reached ({min} rows)",'acf'),
-			'max'			=>	__("Maximum rows reached ({max} rows)",'acf'),
+			'min'			=>	__("Minimum rows reached ({min} rows)",'shaqi-acf-repeater'),
+			'max'			=>	__("Maximum rows reached ({max} rows)",'shaqi-acf-repeater'),
 		);
 		
 		
@@ -63,10 +64,10 @@ class acf_field_repeater extends acf_field {
 	*/
 	
 	function input_admin_enqueue_scripts() {
-		
-		wp_enqueue_script( 'acf-input-repeater', acf_get_external_dir(__FILE__, 'input.js'), array('acf-input') );
-		wp_enqueue_style( 'acf-input-repeater', acf_get_external_dir(__FILE__, 'input.css'), array('acf-input') );
-		
+
+		wp_enqueue_script( 'acf-input-repeater', acf_get_external_dir(__FILE__, 'input.js'), array('acf-input'), ACF_VERSION, true );
+		wp_enqueue_style( 'acf-input-repeater', acf_get_external_dir(__FILE__, 'input.css'), array('acf-input'), ACF_VERSION );
+
 	}
 	
 	
@@ -84,9 +85,9 @@ class acf_field_repeater extends acf_field {
 	*/
 	
 	function field_group_admin_enqueue_scripts() {
-		
-		wp_enqueue_script( 'acf-field-group-repeater', acf_get_external_dir(__FILE__, 'field-group.js'), array('acf-field-group') );
-		
+
+		wp_enqueue_script( 'acf-field-group-repeater', acf_get_external_dir(__FILE__, 'field-group.js'), array('acf-field-group'), ACF_VERSION, true );
+
 	}
 	
 	
@@ -212,7 +213,7 @@ class acf_field_repeater extends acf_field {
 		
 		
 		// button label
-		if( $field['button_label'] === '' ) $field['button_label'] = __('Add Row', 'acf');
+		if( $field['button_label'] === '' ) $field['button_label'] = __('Add Row', 'shaqi-acf-repeater');
 		
 		
 		// field wrap
@@ -269,7 +270,7 @@ class acf_field_repeater extends acf_field {
 		}
 		
 ?>
-<div <?php acf_esc_attr_e($div); ?>>
+<div <?php echo acf_esc_attrs($div); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF escaping function ?>>
 <table class="acf-table">
 	
 	<?php if( $field['layout'] == 'table' ): ?>
@@ -306,10 +307,10 @@ class acf_field_repeater extends acf_field {
 					}
 					
 					?>
-					<th <?php echo acf_esc_attr( $atts ); ?>>
-						<?php echo acf_get_field_label( $sub_field ); ?>
+					<th <?php echo acf_esc_attrs( $atts ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF escaping function ?>>
+						<?php echo acf_get_field_label( $sub_field ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF escaping function ?>
 						<?php if( $sub_field['instructions'] ): ?>
-							<p class="description"><?php echo $sub_field['instructions']; ?></p>
+							<p class="description"><?php echo acf_esc_html( $sub_field['instructions'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF escaping function ?></p>
 						<?php endif; ?>
 					</th>
 				<?php endforeach; ?>
@@ -337,18 +338,18 @@ class acf_field_repeater extends acf_field {
 			}
 			
 			?>
-			<tr class="<?php echo $row_class; ?>" data-id="<?php echo $i; ?>">
-				
+			<tr class="<?php echo esc_attr( $row_class ); ?>" data-id="<?php echo esc_attr( $i ); ?>">
+
 				<?php if( $show_order ): ?>
-					<td class="acf-row-handle order" title="<?php _e('Drag to reorder','acf'); ?>">
+					<td class="acf-row-handle order" title="<?php esc_attr_e('Drag to reorder','shaqi-acf-repeater'); ?>">
 						<?php if( $field['collapsed'] ): ?>
-						<a class="acf-icon -collapse small" href="#" data-event="collapse-row" title="<?php _e('Click to toggle','acf'); ?>"></a>
+						<a class="acf-icon -collapse small" href="#" data-event="collapse-row" title="<?php esc_attr_e('Click to toggle','shaqi-acf-repeater'); ?>"></a>
 						<?php endif; ?>
 						<span><?php echo intval($i) + 1; ?></span>
 					</td>
 				<?php endif; ?>
-				
-				<?php echo $before_fields; ?>
+
+				<?php echo $before_fields; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Contains HTML from ACF ?>
 				
 				<?php foreach( $sub_fields as $sub_field ): 
 					
@@ -382,28 +383,28 @@ class acf_field_repeater extends acf_field {
 					acf_render_field_wrap( $sub_field, $el ); ?>
 					
 				<?php endforeach; ?>
-				
-				<?php echo $after_fields; ?>
-				
+
+				<?php echo $after_fields; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Contains HTML from ACF ?>
+
 				<?php if( $show_remove ): ?>
 					<td class="acf-row-handle remove">
-						<a class="acf-icon -plus small acf-js-tooltip" href="#" data-event="add-row" title="<?php _e('Add row','acf'); ?>"></a>
-						<a class="acf-icon -minus small acf-js-tooltip" href="#" data-event="remove-row" title="<?php _e('Remove row','acf'); ?>"></a>
+						<a class="acf-icon -plus small acf-js-tooltip" href="#" data-event="add-row" title="<?php esc_attr_e('Add row','shaqi-acf-repeater'); ?>"></a>
+						<a class="acf-icon -minus small acf-js-tooltip" href="#" data-event="remove-row" title="<?php esc_attr_e('Remove row','shaqi-acf-repeater'); ?>"></a>
 					</td>
 				<?php endif; ?>
-				
+
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
 <?php if( $show_add ): ?>
-	
+
 	<ul class="acf-actions acf-hl">
 		<li>
-			<a class="acf-button button button-primary" href="#" data-event="add-row"><?php echo $field['button_label']; ?></a>
+			<a class="acf-button button button-primary" href="#" data-event="add-row"><?php echo esc_html( $field['button_label'] ); ?></a>
 		</li>
 	</ul>
-			
+
 <?php endif; ?>
 </div>
 <?php
@@ -435,8 +436,8 @@ class acf_field_repeater extends acf_field {
 		
 		?><tr class="acf-field acf-field-setting-sub_fields" data-setting="repeater" data-name="sub_fields">
 			<td class="acf-label">
-				<label><?php _e("Sub Fields",'acf'); ?></label>
-				<p class="description"></p>		
+				<label><?php esc_html_e("Sub Fields",'shaqi-acf-repeater'); ?></label>
+				<p class="description"></p>
 			</td>
 			<td class="acf-input">
 				<?php 
@@ -465,8 +466,8 @@ class acf_field_repeater extends acf_field {
 		
 		
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Collapsed','acf'),
-			'instructions'	=> __('Select a sub field to show when row is collapsed','acf'),
+			'label'			=> __('Collapsed','shaqi-acf-repeater'),
+			'instructions'	=> __('Select a sub field to show when row is collapsed','shaqi-acf-repeater'),
 			'type'			=> 'select',
 			'name'			=> 'collapsed',
 			'allow_null'	=> 1,
@@ -476,7 +477,7 @@ class acf_field_repeater extends acf_field {
 		
 		// min
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Minimum Rows','acf'),
+			'label'			=> __('Minimum Rows','shaqi-acf-repeater'),
 			'instructions'	=> '',
 			'type'			=> 'number',
 			'name'			=> 'min',
@@ -486,7 +487,7 @@ class acf_field_repeater extends acf_field {
 		
 		// max
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Maximum Rows','acf'),
+			'label'			=> __('Maximum Rows','shaqi-acf-repeater'),
 			'instructions'	=> '',
 			'type'			=> 'number',
 			'name'			=> 'max',
@@ -496,27 +497,27 @@ class acf_field_repeater extends acf_field {
 		
 		// layout
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Layout','acf'),
+			'label'			=> __('Layout','shaqi-acf-repeater'),
 			'instructions'	=> '',
 			'class'			=> 'acf-repeater-layout',
 			'type'			=> 'radio',
 			'name'			=> 'layout',
 			'layout'		=> 'horizontal',
 			'choices'		=> array(
-				'table'			=> __('Table','acf'),
-				'block'			=> __('Block','acf'),
-				'row'			=> __('Row','acf')
+				'table'			=> __('Table','shaqi-acf-repeater'),
+				'block'			=> __('Block','shaqi-acf-repeater'),
+				'row'			=> __('Row','shaqi-acf-repeater')
 			)
 		));
 		
 		
 		// button_label
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Button Label','acf'),
+			'label'			=> __('Button Label','shaqi-acf-repeater'),
 			'instructions'	=> '',
 			'type'			=> 'text',
 			'name'			=> 'button_label',
-			'placeholder'	=> __('Add Row','acf')
+			'placeholder'	=> __('Add Row','shaqi-acf-repeater')
 		));
 		
 	}

@@ -1,4 +1,5 @@
 <?php
+if (!defined('ABSPATH')) exit;
 /**
  * ACF_Repeater_Table
  *
@@ -172,7 +173,7 @@ class ACF_Repeater_Table {
 			$div['class'] .= ' -empty';
 		}
 		?>
-		<div <?php echo acf_esc_attrs( $div ); ?>>
+		<div <?php echo acf_esc_attrs( $div ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF escaping function ?>>
 			<?php
 			acf_hidden_input(
 				array(
@@ -235,7 +236,7 @@ class ACF_Repeater_Table {
 					// Remove "id" to avoid "for" attribute on <label>.
 					$sub_field['id'] = '';
 					?>
-					<th <?php echo acf_esc_attrs( $attrs ); ?>>
+					<th <?php echo acf_esc_attrs( $attrs ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF escaping function ?>>
 						<?php acf_render_field_label( $sub_field ); ?>
 						<?php acf_render_field_instructions( $sub_field ); ?>
 					</th>
@@ -362,10 +363,10 @@ class ACF_Repeater_Table {
 
 		$hr_row_num   = intval( $i ) + 1;
 		$classes      = 'acf-row-handle order';
-		$title        = __( 'Drag to reorder', 'acf' );
+		$title        = __( 'Drag to reorder', 'shaqi-acf-repeater' );
 		$row_num_html = sprintf(
 			'<span class="acf-row-number" title="%s">%d</span>',
-			esc_html__( 'Click to reorder', 'acf' ),
+			esc_html__( 'Click to reorder', 'shaqi-acf-repeater' ),
 			$hr_row_num
 		);
 
@@ -378,7 +379,7 @@ class ACF_Repeater_Table {
 		?>
 		<td class="<?php echo esc_attr( $classes ); ?>" title="<?php echo esc_attr( $title ); ?>">
 			<?php if ( $this->field['collapsed'] ) : ?>
-				<a class="acf-icon -collapse small" href="#" data-event="collapse-row" title="<?php esc_attr_e( 'Click to toggle', 'acf' ); ?>"></a>
+				<a class="acf-icon -collapse small" href="#" data-event="collapse-row" title="<?php esc_attr_e( 'Click to toggle', 'shaqi-acf-repeater' ); ?>"></a>
 			<?php endif; ?>
 			<?php echo $row_num_html; ?><?php //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped where necessary on generation. ?>
 		</td>
@@ -398,9 +399,9 @@ class ACF_Repeater_Table {
 		}
 		?>
 		<td class="acf-row-handle remove">
-			<a class="acf-icon -plus small acf-js-tooltip hide-on-shift" href="#" data-event="add-row" title="<?php esc_attr_e( 'Add row', 'acf' ); ?>"></a>
-			<a class="acf-icon -duplicate small acf-js-tooltip show-on-shift" href="#" data-event="duplicate-row" title="<?php esc_attr_e( 'Duplicate row', 'acf' ); ?>"></a>
-			<a class="acf-icon -minus small acf-js-tooltip" href="#" data-event="remove-row" title="<?php esc_attr_e( 'Remove row', 'acf' ); ?>"></a>
+			<a class="acf-icon -plus small acf-js-tooltip hide-on-shift" href="#" data-event="add-row" title="<?php esc_attr_e( 'Add row', 'shaqi-acf-repeater' ); ?>"></a>
+			<a class="acf-icon -duplicate small acf-js-tooltip show-on-shift" href="#" data-event="duplicate-row" title="<?php esc_attr_e( 'Duplicate row', 'shaqi-acf-repeater' ); ?>"></a>
+			<a class="acf-icon -minus small acf-js-tooltip" href="#" data-event="remove-row" title="<?php esc_attr_e( 'Remove row', 'shaqi-acf-repeater' ); ?>"></a>
 		</td>
 		<?php
 	}
@@ -418,7 +419,7 @@ class ACF_Repeater_Table {
 		}
 		?>
 		<div class="acf-actions">
-			<a class="acf-button acf-repeater-add-row button button-primary" href="#" data-event="add-row"><?php echo acf_esc_html( $this->field['button_label'] ); ?></a>
+			<a class="acf-button acf-repeater-add-row button button-primary" href="#" data-event="add-row"><?php echo acf_esc_html( $this->field['button_label'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF escaping function ?></a>
 			<?php $this->pagination(); ?>
 			<div class="clear"></div>
 		</div>
@@ -444,7 +445,7 @@ class ACF_Repeater_Table {
 
 		$html_current_page = sprintf(
 			"%s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' />",
-			'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page', 'acf' ) . '</label>',
+			'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page', 'shaqi-acf-repeater' ) . '</label>',
 			1,
 			strlen( $total_pages )
 		);
@@ -452,33 +453,33 @@ class ACF_Repeater_Table {
 		$html_total_pages = sprintf( "<span class='acf-total-pages'>%s</span>", number_format_i18n( $total_pages ) );
 		?>
 		<div class="acf-tablenav tablenav-pages">
-			<a class="first-page button acf-nav" aria-hidden="true" data-event="first-page" title="<?php esc_attr_e( 'First Page', 'acf' ); ?>">
-				<span class="screen-reader-text"><?php esc_html_e( 'First Page', 'acf' ); ?></span>
+			<a class="first-page button acf-nav" aria-hidden="true" data-event="first-page" title="<?php esc_attr_e( 'First Page', 'shaqi-acf-repeater' ); ?>">
+				<span class="screen-reader-text"><?php esc_html_e( 'First Page', 'shaqi-acf-repeater' ); ?></span>
 				<span aria-hidden="true">&laquo;</span>
 			</a>
-			<a class="prev-page button acf-nav" aria-hidden="true" data-event="prev-page" title="<?php esc_attr_e( 'Previous Page', 'acf' ); ?>">
-				<span class="screen-reader-text"><?php esc_html_e( 'Previous Page', 'acf' ); ?></span>
+			<a class="prev-page button acf-nav" aria-hidden="true" data-event="prev-page" title="<?php esc_attr_e( 'Previous Page', 'shaqi-acf-repeater' ); ?>">
+				<span class="screen-reader-text"><?php esc_html_e( 'Previous Page', 'shaqi-acf-repeater' ); ?></span>
 				<span aria-hidden="true">&lsaquo;</span>
 			</a>
 			<span class="paging-input">
-				<label for="current-page-selector" class="screen-reader-text"><?php esc_html_e( 'Current Page', 'acf' ); ?></label>
-				<span class="tablenav-paging-text" title="<?php esc_attr_e( 'Current Page', 'acf' ); ?>">
+				<label for="current-page-selector" class="screen-reader-text"><?php esc_html_e( 'Current Page', 'shaqi-acf-repeater' ); ?></label>
+				<span class="tablenav-paging-text" title="<?php esc_attr_e( 'Current Page', 'shaqi-acf-repeater' ); ?>">
 				<?php
 				printf(
 					/* translators: 1: Current page, 2: Total pages. */
-					esc_html_x( '%1$s of %2$s', 'paging', 'acf' ),
+					esc_html_x( '%1$s of %2$s', 'paging', 'shaqi-acf-repeater' ),
 					$html_current_page, //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escape not necessary.
 					$html_total_pages //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escape not necessary.
 				);
 				?>
 				</span>
 			</span>
-			<a class="next-page button acf-nav" data-event="next-page" title="<?php esc_attr_e( 'Next Page', 'acf' ); ?>">
-				<span class="screen-reader-text"><?php esc_html_e( 'Next Page', 'acf' ); ?></span>
+			<a class="next-page button acf-nav" data-event="next-page" title="<?php esc_attr_e( 'Next Page', 'shaqi-acf-repeater' ); ?>">
+				<span class="screen-reader-text"><?php esc_html_e( 'Next Page', 'shaqi-acf-repeater' ); ?></span>
 				<span aria-hidden="true">&rsaquo;</span>
 			</a>
-			<a class="last-page button acf-nav" data-event="last-page" title="<?php esc_attr_e( 'Last Page', 'acf' ); ?>">
-				<span class="screen-reader-text"><?php esc_html_e( 'Last Page', 'acf' ); ?></span>
+			<a class="last-page button acf-nav" data-event="last-page" title="<?php esc_attr_e( 'Last Page', 'shaqi-acf-repeater' ); ?>">
+				<span class="screen-reader-text"><?php esc_html_e( 'Last Page', 'shaqi-acf-repeater' ); ?></span>
 				<span aria-hidden="true">&raquo;</span>
 			</a>
 		</div>

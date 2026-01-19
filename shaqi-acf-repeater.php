@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: ACF Repeater Field
-Plugin Slug: acf-repeater
+Plugin Slug: shaqi-acf-repeater
 Plugin URI: https://github.com/rajaishtiaq6/acf-repeater
 Description: This Add-on adds a repeater field type for the Advanced Custom Fields plugin
 Version: 1.0.0
@@ -11,6 +11,7 @@ Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
 Requires Plugins: advanced-custom-fields
+Text Domain: shaqi-acf-repeater
 License: GPLv2
 */
 
@@ -27,10 +28,10 @@ class acf_plugin_repeater
 
 	function __construct()
 	{
-		// vars
+		// vars - Don't use __() in constructor to avoid early translation loading
 		$this->settings = array(
 			// basic
-			'name'				=> __('Advanced Custom Fields: Repeater Field', 'acf'),
+			'name'				=> 'Advanced Custom Fields: Repeater Field',
 			'version'			=> '1.0.0',
 			// urls
 			'slug'				=> dirname(plugin_basename(__FILE__)),
@@ -39,6 +40,7 @@ class acf_plugin_repeater
 			'dir'				=> plugin_dir_url(__FILE__),
 
 		);
+
 		// include v5 field
 		add_action('acf/include_field_types', array($this, 'include_field_types'));
 		// include v4 field
@@ -47,6 +49,8 @@ class acf_plugin_repeater
 		add_action('admin_enqueue_scripts', array($this, 'acf_repeater_input_admin_enqueue_scripts'));
 		add_action( 'acf/field_group/admin_enqueue_scripts', array($this, 'acf_repeater_localize') );
 	}
+
+
 
 	function acf_repeater_localize() {
 		acf_localize_data(
@@ -89,8 +93,8 @@ class acf_plugin_repeater
 
 	function acf_repeater_input_admin_enqueue_scripts()
 	{
-		// register acf scripts
-		wp_register_script('acf-input-repeater-js', $this->settings['dir'] . 'includes/' . $this->version . '/input.js', array('acf-input'), $this->settings['version']);
+		// register acf scripts - with version and footer parameter
+		wp_register_script('acf-input-repeater-js', $this->settings['dir'] . 'includes/' . $this->version . '/input.js', array('acf-input'), $this->settings['version'], true);
 		wp_register_style('acf-input-repeater-css', $this->settings['dir'] . 'includes/' . $this->version . '/input.css', array('acf-input'), $this->settings['version']);
 
 		// scripts

@@ -1,4 +1,5 @@
 <?php
+if (!defined('ABSPATH')) exit;
 
 if ( ! class_exists( 'acf_field_repeater' ) ) :
 
@@ -26,9 +27,9 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 		 */
 		public function initialize() {
 			$this->name          = 'repeater';
-			$this->label         = __( 'Repeater', 'acf' );
+			$this->label         = __( 'Repeater', 'shaqi-acf-repeater' );
 			$this->category      = 'layout';
-			$this->description   = __( 'Allows you to select and display existing fields. It does not duplicate any fields in the database, but loads and displays the selected fields at run-time. The Clone field can either replace itself with the selected fields or display the selected fields as a group of subfields.', 'acf' );
+			$this->description   = __( 'Allows you to select and display existing fields. It does not duplicate any fields in the database, but loads and displays the selected fields at run-time. The Clone field can either replace itself with the selected fields or display the selected fields as a group of subfields.', 'shaqi-acf-repeater' );
 			$this->preview_image = acf_get_url() . '/assets/images/field-type-previews/field-preview-repeater.png';
 			$this->doc_url       = acf_add_url_utm_tags( 'https://www.advancedcustomfields.com/resources/repeater/', 'docs', 'field-type-selection' );
 			$this->tutorial_url  = acf_add_url_utm_tags( 'https://www.advancedcustomfields.com/resources/repeater/how-to-use-the-repeater-field/', 'docs', 'field-type-selection' );
@@ -63,10 +64,10 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 		public function input_admin_enqueue_scripts() {
 			acf_localize_text(
 				array(
-					'Minimum rows not reached ({min} rows)' => __( 'Minimum rows not reached ({min} rows)', 'acf' ),
-					'Maximum rows reached ({max} rows)' => __( 'Maximum rows reached ({max} rows)', 'acf' ),
-					'Error loading page'                => __( 'Error loading page', 'acf' ),
-					'Order will be assigned upon save'  => __( 'Order will be assigned upon save', 'acf' ),
+					'Minimum rows not reached ({min} rows)' => __( 'Minimum rows not reached ({min} rows)', 'shaqi-acf-repeater' ),
+					'Maximum rows reached ({max} rows)' => __( 'Maximum rows reached ({max} rows)', 'shaqi-acf-repeater' ),
+					'Error loading page'                => __( 'Error loading page', 'shaqi-acf-repeater' ),
+					'Order will be assigned upon save'  => __( 'Order will be assigned upon save', 'shaqi-acf-repeater' ),
 				)
 			);
 		}
@@ -100,7 +101,7 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			}
 
 			if ( '' === $field['button_label'] ) {
-				$field['button_label'] = __( 'Add Row', 'acf' );
+				$field['button_label'] = __( 'Add Row', 'shaqi-acf-repeater' );
 			}
 
 			return $field;
@@ -159,7 +160,7 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			?>
 			<div class="acf-field acf-field-setting-sub_fields" data-setting="repeater" data-name="sub_fields">
 				<div class="acf-label">
-					<label><?php esc_html_e( 'Sub Fields', 'acf' ); ?></label>
+					<label><?php esc_html_e( 'Sub Fields', 'shaqi-acf-repeater' ); ?></label>
 					<p class="description"></p>		
 				</div>
 				<div class="acf-input acf-input-sub">
@@ -174,16 +175,16 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			acf_render_field_setting(
 				$field,
 				array(
-					'label'        => __( 'Layout', 'acf' ),
+					'label'        => __( 'Layout', 'shaqi-acf-repeater' ),
 					'instructions' => '',
 					'class'        => 'acf-repeater-layout',
 					'type'         => 'radio',
 					'name'         => 'layout',
 					'layout'       => 'horizontal',
 					'choices'      => array(
-						'table' => __( 'Table', 'acf' ),
-						'block' => __( 'Block', 'acf' ),
-						'row'   => __( 'Row', 'acf' ),
+						'table' => __( 'Table', 'shaqi-acf-repeater' ),
+						'block' => __( 'Block', 'shaqi-acf-repeater' ),
+						'row'   => __( 'Row', 'shaqi-acf-repeater' ),
 					),
 				)
 			);
@@ -192,8 +193,8 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 				acf_render_field_setting(
 					$field,
 					array(
-						'label'        => __( 'Pagination', 'acf' ),
-						'instructions' => __( 'Useful for fields with a large number of rows.', 'acf' ),
+						'label'        => __( 'Pagination', 'shaqi-acf-repeater' ),
+						'instructions' => __( 'Useful for fields with a large number of rows.', 'shaqi-acf-repeater' ),
 						'class'        => 'acf-repeater-pagination',
 						'type'         => 'true_false',
 						'name'         => 'pagination',
@@ -204,8 +205,8 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 				acf_render_field_setting(
 					$field,
 					array(
-						'label'        => __( 'Rows Per Page', 'acf' ),
-						'instructions' => __( 'Set the number of rows to be displayed on a page.', 'acf' ),
+						'label'        => __( 'Rows Per Page', 'shaqi-acf-repeater' ),
+						'instructions' => __( 'Set the number of rows to be displayed on a page.', 'shaqi-acf-repeater' ),
 						'class'        => 'acf-repeater-pagination-num-rows',
 						'type'         => 'number',
 						'name'         => 'rows_per_page',
@@ -237,7 +238,7 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			acf_render_field_setting(
 				$field,
 				array(
-					'label'        => __( 'Minimum Rows', 'acf' ),
+					'label'        => __( 'Minimum Rows', 'shaqi-acf-repeater' ),
 					'instructions' => '',
 					'type'         => 'number',
 					'name'         => 'min',
@@ -248,7 +249,7 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			acf_render_field_setting(
 				$field,
 				array(
-					'label'        => __( 'Maximum Rows', 'acf' ),
+					'label'        => __( 'Maximum Rows', 'shaqi-acf-repeater' ),
 					'instructions' => '',
 					'type'         => 'number',
 					'name'         => 'max',
@@ -278,8 +279,8 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			acf_render_field_setting(
 				$field,
 				array(
-					'label'        => __( 'Collapsed', 'acf' ),
-					'instructions' => __( 'Select a sub field to show when row is collapsed', 'acf' ),
+					'label'        => __( 'Collapsed', 'shaqi-acf-repeater' ),
+					'instructions' => __( 'Select a sub field to show when row is collapsed', 'shaqi-acf-repeater' ),
 					'type'         => 'select',
 					'name'         => 'collapsed',
 					'allow_null'   => 1,
@@ -290,11 +291,11 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			acf_render_field_setting(
 				$field,
 				array(
-					'label'        => __( 'Button Label', 'acf' ),
+					'label'        => __( 'Button Label', 'shaqi-acf-repeater' ),
 					'instructions' => '',
 					'type'         => 'text',
 					'name'         => 'button_label',
-					'placeholder'  => __( 'Add Row', 'acf' ),
+					'placeholder'  => __( 'Add Row', 'shaqi-acf-repeater' ),
 				)
 			);
 		}
@@ -458,7 +459,7 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			if ( empty( $field['pagination'] ) && $min && $count < $min ) {
 
 				// create error
-				$error = __( 'Minimum rows not reached ({min} rows)', 'acf' );
+				$error = __( 'Minimum rows not reached ({min} rows)', 'shaqi-acf-repeater' );
 				$error = str_replace( '{min}', $min, $error );
 
 				// return
@@ -909,7 +910,8 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 					'param' => $param,
 					'value' => $value,
 				);
-				$error = sprintf( __( '%s must be of type array or null.', 'acf' ), $param );
+				// translators: %s is the field name.
+				$error = sprintf(__( '%s must be of type array or null.', 'shaqi-acf-repeater' ), $param );
 				return new WP_Error( 'rest_invalid_param', $error, $param );
 			}
 
@@ -1046,12 +1048,12 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			);
 
 			if ( ! acf_verify_ajax() ) {
-				$error = array( 'error' => __( 'Invalid nonce.', 'acf' ) );
+				$error = array( 'error' => __( 'Invalid nonce.', 'shaqi-acf-repeater' ) );
 				wp_send_json_error( $error, 401 );
 			}
 
 			if ( '' === $args['field_name'] || '' === $args['field_key'] ) {
-				$error = array( 'error' => __( 'Invalid field key or name.', 'acf' ) );
+				$error = array( 'error' => __( 'Invalid field key or name.', 'shaqi-acf-repeater' ) );
 				wp_send_json_error( $error, 404 );
 			}
 
@@ -1060,7 +1062,7 @@ if ( ! class_exists( 'acf_field_repeater' ) ) :
 			$response = array();
 
 			if ( ! $field || ! $post_id ) {
-				$error = array( 'error' => __( 'There was an error retrieving the field.', 'acf' ) );
+				$error = array( 'error' => __( 'There was an error retrieving the field.', 'shaqi-acf-repeater' ) );
 				wp_send_json_error( $error, 404 );
 			}
 
