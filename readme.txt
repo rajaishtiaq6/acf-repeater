@@ -4,7 +4,7 @@ Tags: acf, repeater, custom-fields, advanced-custom-fields
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.3-beta
+Stable tag: 1.0.4
 Date: 19.01.2025
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
