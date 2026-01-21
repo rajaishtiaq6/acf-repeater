@@ -4,9 +4,10 @@ Tags: acf, repeater, custom-fields, advanced-custom-fields
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
+Date: 19.01.2025
 License: GPLv2 or later
-License URI: [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 A powerful repeater field add-on for Advanced Custom Fields that helps you manage repeatable content like sliders, team members, and CTA blocks.
 
@@ -66,7 +67,7 @@ ACF provides helper functions for working with repeater fields:
 
 = Basic Loop =
 
-```
+```php
 <?php
 if ( have_rows('repeater_field_name') ) :
 
@@ -82,7 +83,7 @@ endif;
 
 = Display a Slider =
 
-```
+```php
 <?php if ( have_rows('slides') ) : ?>
     <ul class="slides">
         <?php while ( have_rows('slides') ) : the_row(); ?>
@@ -98,7 +99,7 @@ endif;
 
 = Foreach Loop =
 
-```
+```php
 <?php
 $rows = get_field('repeater_field_name');
 if ( $rows ) {
@@ -115,7 +116,7 @@ if ( $rows ) {
 
 = Nested Loops =
 
-```
+```php
 <?php
 if ( have_rows('parent_repeater') ) :
     while ( have_rows('parent_repeater') ) : the_row();
