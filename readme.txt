@@ -4,7 +4,7 @@ Tags: acf, repeater, custom-fields, advanced-custom-fields
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -25,7 +25,7 @@ This field type acts as a parent container for a set of sub fields which can be 
 * **ACF 5.7 – 6.1** — Legacy support
 * **ACF 5.0 – 5.6** — Legacy support
 
-== Settings ==
+= Settings =
 
 = Sub Fields =
 Defines the set of repeatable sub fields.
@@ -57,7 +57,7 @@ Note: Pagination is not supported inside flexible content fields or nested repea
 = Rows per Page =
 Introduced in ACF 6.0. Sets the number of rows displayed per page when pagination is enabled.
 
-== Template Usage ==
+= Template Usage =
 
 The Repeater field returns an array of rows, where each row contains the values of its sub fields.
 
@@ -134,15 +134,47 @@ if ( have_rows('parent_repeater') ) :
 endif;
 ```
 
-== Editing a Repeater ==
+= Editing a Repeater =
 
 Editing a repeater field is straightforward. Click the **Add Row** button to add new rows and edit the values of the visible sub fields.
 
-== Pagination Notes ==
+= Pagination Notes =
 
 The pagination setting introduced in ACF 6.0 helps improve performance when working with large repeater fields in the admin area.
 
 Pagination is not supported in frontend forms, ACF blocks, flexible content fields, or nested repeaters.
+
+---
+
+== Installation ==
+
+1. Upload the plugin files to the `/wp-content/plugins/acf-repeater-field` directory.
+2. Activate the plugin through the Plugins screen in WordPress.
+3. Make sure Advanced Custom Fields is installed and activated.
+4. Create a new field group and add a Repeater field.
+
+---
+
+== FAQ ==
+
+= Does this plugin require ACF Pro? =
+No. This plugin works with both ACF Free and ACF Pro.
+
+= Is this plugin affiliated with ACF? =
+No. This is an independent add-on and is not affiliated with the ACF team.
+
+= Does it support nested repeaters? =
+Yes, nested repeaters are supported.
+
+
+---
+
+== Screenshots ==
+
+1. Repeater field settings screen
+2. Repeater field rows in the admin editor
+3. Repeater field output on the frontend
+
 
 ---
 
