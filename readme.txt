@@ -6,209 +6,155 @@ Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License URI: [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
 
-The Repeater field provides a neat solution for repeating content – think slides, team members, CTA tiles and alike.
+A powerful repeater field add-on for Advanced Custom Fields that helps you manage repeatable content like sliders, team members, and CTA blocks.
 
 == Description ==
 
-The Repeater field provides a neat solution for repeating content – think slides, team members, CTA tiles and alike.
+The Repeater field provides a clean and flexible solution for managing repeating sets of data such as sliders, team members, testimonials, or CTA tiles.
 
-This field type acts as a parent to a set of sub fields which can be repeated again and again. What makes this field type so special is its versatility. Any kind of field can be used within a Repeater, and there are no limits to the number of repeats either (unless defined in the field settings).
+This field type acts as a parent container for a set of sub fields which can be repeated multiple times. Any ACF field type can be used inside a repeater, and there is no hard limit on the number of rows unless defined in the field settings.
 
 **Note:** This plugin is an independent add-on for Advanced Custom Fields and is not affiliated with or endorsed by the ACF team.
 
 = Version Compatibility =
 
-* ACF 6.7+ - Full support for ACF Pro 6.7 features including improved nonce verification, field_prefix support, and enhanced clone field handling
-* ACF 6.2 - 6.6 - Support for pagination and ACF 6.x features
-* ACF 5.7 - 6.1 - Legacy support
-* ACF 5.0 - 5.6 - Legacy support
+* **ACF 6.7+** — Full support for ACF Pro 6.7 features including improved nonce verification, field_prefix support, and enhanced clone field handling
+* **ACF 6.2 – 6.6** — Support for pagination and other ACF 6.x features
+* **ACF 5.7 – 6.1** — Legacy support
+* **ACF 5.0 – 5.6** — Legacy support
 
-
-= Settings =
+== Settings ==
 
 = Sub Fields =
 Defines the set of repeatable sub fields.
 
-### Collapsed
-Enables each row to be collapsed by specifying a single sub field to display.
+= Collapsed =
+Allows each row to be collapsed by selecting a single sub field to display as the row label.
 
-### Minimum Rows
-Sets a limit on how many rows of data are required.
+= Minimum Rows =
+Sets the minimum number of rows required.
 
-### Maximum Rows
-Sets a limit on how many rows of data are allowed.
+= Maximum Rows =
+Sets the maximum number of rows allowed.
 
-### Layout
-Defines the layout style of the appearance of the sub fields.
-Table: Sub fields are displayed in a table. Labels will appear in the table header.
-Block: Sub fields are displayed in blocks, one after the other.
-Row: Sub fields are displayed in a two column table. Labels will appear in the first column.
+= Layout =
+Defines how sub fields are displayed.
 
-### Button Label
-The text shown in the ‘Add Row’ button.
+* **Table** — Sub fields are displayed in a table with labels in the header.
+* **Block** — Sub fields are displayed as stacked blocks.
+* **Row** — Sub fields are displayed in a two-column layout with labels on the left.
 
-### Pagination
-Added in ACF 6.0. Defines if the repeater should only load a set number of rows per page when editing the repeater in the admin. If disabled (which it is by default), all rows will be loaded at once. This setting does not affect template usage or results returned via the REST API. Note: This setting is not currently supported inside flexible content and other repeater fields. In these cases, this setting will not be shown.
+= Button Label =
+Customizes the text shown in the **Add Row** button.
 
-### Rows per page
-Added in ACF 6.0. Sets the number of rows that are displayed on a page if the **Pagination** setting is enabled.
+= Pagination =
+Introduced in ACF 6.0. Limits the number of rows loaded per page in the admin interface. This setting does not affect frontend output or REST API responses.
 
-## Template Usage
-The Repeater field will return an array of rows, where each row is an array containing sub field values.
+Note: Pagination is not supported inside flexible content fields or nested repeater fields.
 
-For the best developer experience, we created some extra functions specifically for looping over rows and accessing sub field values. These are the have_rows, the_row, get_sub_field, and the_sub_field functions.
+= Rows per Page =
+Introduced in ACF 6.0. Sets the number of rows displayed per page when pagination is enabled.
 
+== Template Usage ==
 
-### Basic loop
-This example demonstrates how to loop through a Repeater field and load a sub field value.
+The Repeater field returns an array of rows, where each row contains the values of its sub fields.
 
- ```
- <?php
+ACF provides helper functions for working with repeater fields:
+`have_rows()`, `the_row()`, `get_sub_field()`, and `the_sub_field()`.
 
-// Check rows exists.
-if( have_rows('repeater_field_name') ):
+= Basic Loop =
 
-    // Loop through rows.
-    while( have_rows('repeater_field_name') ) : the_row();
+```
+<?php
+if ( have_rows('repeater_field_name') ) :
 
-        // Load sub field value.
+    while ( have_rows('repeater_field_name') ) : the_row();
+
         $sub_value = get_sub_field('sub_field');
-        // Do something, but make sure you escape the value if outputting directly...
+        // Use the value as needed.
 
-    // End loop.
     endwhile;
 
-// No value.
-else :
-    // Do something...
 endif;
 ```
 
-### Display a slider
-This example demonstrates how to loop through a Repeater field and generate the HTML for a basic image slider.
+= Display a Slider =
 
 ```
-<?php if( have_rows('slides') ): ?>
+<?php if ( have_rows('slides') ) : ?>
     <ul class="slides">
-    <?php while( have_rows('slides') ): the_row(); 
-        $image = get_sub_field('image');
-        ?>
-        <li>
-            <?php echo wp_get_attachment_image( $image, 'full' ); ?>
-            <p><?php echo acf_esc_html( get_sub_field('caption') ); ?></p>
-        </li>
-    <?php endwhile; ?>
+        <?php while ( have_rows('slides') ) : the_row(); ?>
+            <?php $image = get_sub_field('image'); ?>
+            <li>
+                <?php echo wp_get_attachment_image( $image, 'full' ); ?>
+                <p><?php echo acf_esc_html( get_sub_field('caption') ); ?></p>
+            </li>
+        <?php endwhile; ?>
     </ul>
 <?php endif; ?>
 ```
 
-### Foreach Loop
-This example demonstrates how you can manually loop over a Repeater field value using a foreach loop.
+= Foreach Loop =
+
 ```
-<?php 
+<?php
 $rows = get_field('repeater_field_name');
-if( $rows ) {
+if ( $rows ) {
     echo '<ul class="slides">';
-    foreach( $rows as $row ) {
-        $image = $row['image'];
+    foreach ( $rows as $row ) {
         echo '<li>';
-            echo wp_get_attachment_image( $image, 'full' );
-            echo wp_kses_post( wpautop( $row['caption'] ) );
+        echo wp_get_attachment_image( $row['image'], 'full' );
+        echo wp_kses_post( wpautop( $row['caption'] ) );
         echo '</li>';
     }
     echo '</ul>';
 }
 ```
-### Nested loops
-This example demonstrates how to loop through a nested Repeater field and load a sub-sub field value.
+
+= Nested Loops =
+
 ```
 <?php
-/**
- * Field Structure:
- *
- * - parent_repeater (Repeater)
- *   - parent_title (Text)
- *   - child_repeater (Repeater)
- *     - child_title (Text)
- */
-if( have_rows('parent_repeater') ):
-    while( have_rows('parent_repeater') ) : the_row();
+if ( have_rows('parent_repeater') ) :
+    while ( have_rows('parent_repeater') ) : the_row();
 
-        // Get parent value.
         $parent_title = get_sub_field('parent_title');
 
-        // Loop over sub repeater rows.
-        if( have_rows('child_repeater') ):
-            while( have_rows('child_repeater') ) : the_row();
+        if ( have_rows('child_repeater') ) :
+            while ( have_rows('child_repeater') ) : the_row();
 
-                // Get sub value.
                 $child_title = get_sub_field('child_title');
 
             endwhile;
         endif;
+
     endwhile;
 endif;
 ```
-### Accessing first row values
-This example demonstrates how to load a sub field value from the first row of a Repeater field.
-```
-<?php
-$rows = get_field('repeater_field_name' );
-if( $rows ) {
-    $first_row = $rows[0];
-    $first_row_title = $first_row['title'];
-    // Do something...
-}
-You may also use the break statement within a have_rows() loop to step out at any time.
 
-<?php 
-if( have_rows('repeater_field_name') ) {
-    while( have_rows('repeater_field_name') ) {
-        the_row();
-        $first_row_title = get_sub_field('title');
-        // Do something...
-        break;
-    }
-}
-```
-### Accessing random row values
-This example demonstrates how to load a sub field value from a random row of a Repeater field.
-```
-<?php
-$rows = get_field('repeater_field_name' );
-if( $rows ) {
-    $index = array_rand( $rows );
-    $rand_row = $rows[ $index ];
-    $rand_row_title = $rand_row['title'];
-    // Do something...
-}
-```
-## Editing a Repeater
-Working with the repeater field is relatively straightforward – you just need to click the **Add Row** button to add a new row and edit the values of the subfields that are shown.
+== Editing a Repeater ==
 
-But there are a few tips and tricks that can make working with repeaters much easier.
+Editing a repeater field is straightforward. Click the **Add Row** button to add new rows and edit the values of the visible sub fields.
 
-### Pagination Notes
-The **Pagination** setting introduced in ACF 6.0 helps with large repeaters by reducing the number of rows that are rendered at once, potentially avoiding browser crashes and PHP errors that might occur during repeater load or save.
+== Pagination Notes ==
 
-However, there are a few scenarios where pagination isn’t supported. The pagination setting won’t be shown for repeater fields inside other repeaters or flexible content fields. This is something that we hope to address in a near-future release.
+The pagination setting introduced in ACF 6.0 helps improve performance when working with large repeater fields in the admin area.
 
-Pagination won’t work for frontend forms – if the pagination setting is enabled, the repeater will operate like a repeater with pagination disabled when viewed in a frontend form. However, pagination should still work for the same repeater when viewed through the WordPress admin.
+Pagination is not supported in frontend forms, ACF blocks, flexible content fields, or nested repeaters.
 
-Also, pagination does not currently work inside of ACF blocks. That may change in the future, but pagination won’t be able to provide much of a performance benefit in ACF blocks due to the way that blocks store all data in the post content and DOM.
+---
 
------
+== Changelog ==
 
-## Changelog
+= 1.0.0 (2026-01-17) =
 
-### 1.0.0 (2026-01-17)
-- Initial release for ACF 4.x and 5.x
+* Initial release
 
------
+---
 
-## License
+== License ==
 
 This plugin is licensed under the GPLv2 or later.
 
