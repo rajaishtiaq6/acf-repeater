@@ -4,7 +4,7 @@ Plugin Name: ACF Repeater Field
 Plugin Slug: shaqi-acf-repeater
 Plugin URI: https://github.com/rajaishtiaq6/shaqi-acf-repeater
 Description: This Add-on adds a repeater field type for the Advanced Custom Fields plugin
-Version: 1.0.4
+Version: 1.0.5
 Author: Ishtiaq Ahmed
 Author URI: https://github.com/rajaishtiaq6
 Requires at least: 6.0
@@ -16,11 +16,6 @@ License: GPLv2
 */
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
-
-
-require plugin_dir_path(__FILE__) . 'plugin-update-checker/plugin-update-checker.php';
-
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 if (!class_exists('acf_plugin_repeater')) :
 
@@ -114,24 +109,10 @@ class acf_plugin_repeater
 	}
 }
 
-
-
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://github.com/rajaishtiaq6/shaqi-acf-repeater',
-	__FILE__,
-	'shaqi-acf-repeater'
-);
-
-//Set the branch that contains the stable release.
-$myUpdateChecker->setBranch('main');
-
-//Optional: If you're using a private repository, specify the access token like this:
-// $myUpdateChecker->setAuthentication('your-token-here');
-
-
+require plugin_dir_path(__FILE__) . 'includes/update.php';
 
 // globals
-global $acf_plugin_repeater;
+global $acf_plugin_repeater;	
 
 // instantiate
 $acf_plugin_repeater = new acf_plugin_repeater();
