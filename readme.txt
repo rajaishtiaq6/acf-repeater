@@ -4,7 +4,7 @@ Tags: acf, repeater, custom-fields, advanced-custom-fields
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -151,6 +151,10 @@ Pagination is not supported in frontend forms, ACF blocks, flexible content fiel
 = 1.0.0 (2026-01-17) =
 
 * Initial release
+
+= 1.0.1 (2026-01-19) =
+
+* Added auto update feature
 
 ---
 
