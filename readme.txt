@@ -4,7 +4,7 @@ Tags: acf, repeater, custom-fields, advanced-custom-fields
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.0.3-beta
 Date: 19.01.2025
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -67,24 +67,18 @@ ACF provides helper functions for working with repeater fields:
 
 = Basic Loop =
 
-```php
-<?php
+```<?php
 if ( have_rows('repeater_field_name') ) :
-
     while ( have_rows('repeater_field_name') ) : the_row();
-
         $sub_value = get_sub_field('sub_field');
         // Use the value as needed.
-
     endwhile;
-
 endif;
 ```
 
 = Display a Slider =
 
-```php
-<?php if ( have_rows('slides') ) : ?>
+```<?php if ( have_rows('slides') ) : ?>
     <ul class="slides">
         <?php while ( have_rows('slides') ) : the_row(); ?>
             <?php $image = get_sub_field('image'); ?>
@@ -99,8 +93,7 @@ endif;
 
 = Foreach Loop =
 
-```php
-<?php
+```<?php
 $rows = get_field('repeater_field_name');
 if ( $rows ) {
     echo '<ul class="slides">';
@@ -116,8 +109,7 @@ if ( $rows ) {
 
 = Nested Loops =
 
-```php
-<?php
+```<?php
 if ( have_rows('parent_repeater') ) :
     while ( have_rows('parent_repeater') ) : the_row();
 

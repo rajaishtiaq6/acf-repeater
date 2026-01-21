@@ -4,7 +4,7 @@ Plugin Name: ACF Repeater Field
 Plugin Slug: shaqi-acf-repeater
 Plugin URI: https://github.com/rajaishtiaq6/shaqi-acf-repeater
 Description: This Add-on adds a repeater field type for the Advanced Custom Fields plugin
-Version: 1.0.3
+Version: 1.0.3-beta
 Author: Ishtiaq Ahmed
 Author URI: https://github.com/rajaishtiaq6
 Requires at least: 6.0
