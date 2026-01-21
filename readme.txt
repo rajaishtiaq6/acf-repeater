@@ -67,65 +67,60 @@ ACF provides helper functions for working with repeater fields:
 
 = Basic Loop =
 
-```<?php
-if ( have_rows('repeater_field_name') ) :
-    while ( have_rows('repeater_field_name') ) : the_row();
-        $sub_value = get_sub_field('sub_field');
-        // Use the value as needed.
-    endwhile;
-endif;
-```
+    <?php
+    if ( have_rows('repeater_field_name') ) :
+        while ( have_rows('repeater_field_name') ) : the_row();
+            $sub_value = get_sub_field('sub_field');
+            // Use the value as needed.
+        endwhile;
+    endif;
+    ?>
 
 = Display a Slider =
 
-```<?php if ( have_rows('slides') ) : ?>
-    <ul class="slides">
-        <?php while ( have_rows('slides') ) : the_row(); ?>
-            <?php $image = get_sub_field('image'); ?>
-            <li>
-                <?php echo wp_get_attachment_image( $image, 'full' ); ?>
-                <p><?php echo acf_esc_html( get_sub_field('caption') ); ?></p>
-            </li>
-        <?php endwhile; ?>
-    </ul>
-<?php endif; ?>
-```
+    <?php if ( have_rows('slides') ) : ?>
+        <ul class="slides">
+            <?php while ( have_rows('slides') ) : the_row(); ?>
+                <?php $image = get_sub_field('image'); ?>
+                <li>
+                    <?php echo wp_get_attachment_image( $image, 'full' ); ?>
+                    <p><?php echo acf_esc_html( get_sub_field('caption') ); ?></p>
+                </li>
+            <?php endwhile; ?>
+        </ul>
+    <?php endif; ?>
+
 
 = Foreach Loop =
 
-```<?php
-$rows = get_field('repeater_field_name');
-if ( $rows ) {
-    echo '<ul class="slides">';
-    foreach ( $rows as $row ) {
-        echo '<li>';
-        echo wp_get_attachment_image( $row['image'], 'full' );
-        echo wp_kses_post( wpautop( $row['caption'] ) );
-        echo '</li>';
+    <?php
+    $rows = get_field('repeater_field_name');
+    if ( $rows ) {
+        echo '<ul class="slides">';
+        foreach ( $rows as $row ) {
+            echo '<li>';
+            echo wp_get_attachment_image( $row['image'], 'full' );
+            echo wp_kses_post( wpautop( $row['caption'] ) );
+            echo '</li>';
+        }
+        echo '</ul>';
     }
-    echo '</ul>';
-}
-```
+    ?>
 
 = Nested Loops =
 
-```<?php
-if ( have_rows('parent_repeater') ) :
-    while ( have_rows('parent_repeater') ) : the_row();
-
-        $parent_title = get_sub_field('parent_title');
-
-        if ( have_rows('child_repeater') ) :
-            while ( have_rows('child_repeater') ) : the_row();
-
-                $child_title = get_sub_field('child_title');
-
-            endwhile;
-        endif;
-
-    endwhile;
-endif;
-```
+    <?php
+    if ( have_rows('parent_repeater') ) :
+        while ( have_rows('parent_repeater') ) : the_row();
+            $parent_title = get_sub_field('parent_title');
+            if ( have_rows('child_repeater') ) :
+                while ( have_rows('child_repeater') ) : the_row();
+                    $child_title = get_sub_field('child_title');
+                endwhile;
+            endif;
+        endwhile;
+    endif;
+    ?>
 
 = Editing a Repeater =
 
